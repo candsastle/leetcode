@@ -1,0 +1,18 @@
+[project]
+name = "python-template"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+
+]
+[dependency-groups]
+dev = [
+    "pyrefly>=1.0.0",
+    "ruff>=0.15.13",
+]
+
+[tool.pyrefly]
+project-includes = ["src"]
+preset = "strict"
