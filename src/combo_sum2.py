@@ -1,4 +1,5 @@
-def combinationSum2(candidates: list[int], target: int) -> list[list[int]]:
+# 1 1 2 5 6 7 10
+def combinationSum2_naive(candidates: list[int], target: int) -> list[list[int]]:
     freq_map: dict[int, int] = dict()
     for cand in candidates:
         if cand not in freq_map:
@@ -61,3 +62,28 @@ def combinationSum2(candidates: list[int], target: int) -> list[list[int]]:
         total_list.append(nums)
 
     return total_list
+
+
+def combinationSum2_sorted(candidates: list[int], target: int) -> list[list[int]]:
+    num_cands = len(candidates)
+    candidates.sort()
+
+    queue: list[tuple[int, int, list[int]]] = [(0, target, [])]
+    final_list = []
+
+    while len(queue) != 0:
+        start, cur_target, cur_chosen = queue.pop(0)
+        cur_cand = -1
+
+        for i in range(start, num_cands):
+            if candidates[i] == cur_cand:
+                continue
+            cur_cand = candidates[i]
+
+            new_target = cur_target - cur_cand
+            if new_target == 0:
+                final_list.append(cur_chosen + [cur_cand])
+            elif new_target > 0 and i + 1 < num_cands:
+                queue.append((i + 1, new_target, cur_chosen + [cur_cand]))
+
+    return final_list
