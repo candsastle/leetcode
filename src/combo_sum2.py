@@ -81,8 +81,11 @@ def combinationSum2_sorted(candidates: list[int], target: int) -> list[list[int]
             cur_cand = candidates[i]
 
             new_target = cur_target - cur_cand
+            if new_target < 0:
+                break
             if new_target == 0:
                 final_list.append(cur_chosen + [cur_cand])
+                break
             elif new_target > 0 and i + 1 < num_cands:
                 queue.append((i + 1, new_target, cur_chosen + [cur_cand]))
 
